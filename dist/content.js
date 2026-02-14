@@ -1,9 +1,4 @@
-// ============================================================
-// ECOCART DECODER — content.js
-// Combines product-level environmental impact with
-// company-level Justice & Sustainability scores.
-// Sources: CDP (2024), JUST Capital (2024), Violation Tracker
-// ============================================================
+
 
 // ─── 1. PRODUCT ARCHETYPES ───────────────────────────────────
 var archetypes = {
