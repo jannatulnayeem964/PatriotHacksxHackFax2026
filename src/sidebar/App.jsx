@@ -33,6 +33,16 @@ export default function App() {
           </div>
         </div>
       ))}
+      <div className='mt-4 p-3 bg-gray-50 rounded-xl'>
+        <a
+          href="https://costestimation.my.canva.site/untitled-app"
+          target="_blank"
+          rel="noopener noreferrer"
+          className='text-sm text-blue-600 underline hover:text-blue-800'
+        >
+          How we got this score →
+        </a>
+      </div>
     </div>
   )
 }
