@@ -192,8 +192,7 @@ function scanCart() {
           '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Carbon (' + (match.co2e * weightKg * qty).toFixed(1) + ' kg CO2e)</span><span style="color:#DC2626;font-weight:600;">$' + (costs.carbon * qty).toFixed(2) + '</span></div>' +
           '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Water (' + (match.water * weightKg * qty).toFixed(0) + ' L)</span><span style="color:#2563EB;font-weight:600;">$' + (costs.water * qty).toFixed(2) + '</span></div>' +
           '<div style="display:flex;justify-content:space-between;"><span>Land (' + (match.land * weightKg * qty).toFixed(1) + ' m2)</span><span style="color:#16A34A;font-weight:600;">$' + (costs.land * qty).toFixed(2) + '</span></div>' +
-          '<div style="margin-top:6px;padding-top:6px;border-top:1px solid #E5E7EB;font-size:10px;color:#999;">Weight: ' + (weightKg * 1000).toFixed(0) + 'g x' + qty + ' | Source: Poore & Nemecek 2018</div>' +
-          '<div style="margin-top:8px;padding-top:8px;border-top:1px solid #E5E7EB;"><a href="https://costestimation.my.canva.site/untitled-app" target="_blank" rel="noopener noreferrer" style="color:#059669;text-decoration:underline;font-size:12px;cursor:pointer;" onmouseover="this.style.color=\'#047857\'" onmouseout="this.style.color=\'#059669\'">How we got this score →</a></div>';
+          '<div style="margin-top:6px;padding-top:6px;border-top:1px solid #E5E7EB;font-size:10px;color:#999;">Weight: ' + (weightKg * 1000).toFixed(0) + 'g x' + qty + ' | Source: Poore & Nemecek 2018</div>';
       }
       return;
     }
@@ -240,8 +239,7 @@ function scanCart() {
       '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Carbon (' + (match.co2e * weightKg * qty).toFixed(1) + ' kg CO2e)</span><span style="color:#DC2626;font-weight:600;">$' + (costs.carbon * qty).toFixed(2) + '</span></div>' +
       '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Water (' + (match.water * weightKg * qty).toFixed(0) + ' L)</span><span style="color:#2563EB;font-weight:600;">$' + (costs.water * qty).toFixed(2) + '</span></div>' +
       '<div style="display:flex;justify-content:space-between;"><span>Land (' + (match.land * weightKg * qty).toFixed(1) + ' m2)</span><span style="color:#16A34A;font-weight:600;">$' + (costs.land * qty).toFixed(2) + '</span></div>' +
-      '<div style="margin-top:6px;padding-top:6px;border-top:1px solid #E5E7EB;font-size:10px;color:#999;">Weight: ' + (weightKg * 1000).toFixed(0) + 'g x' + qty + ' | Source: Poore & Nemecek 2018</div>' +
-      '<div style="margin-top:8px;padding-top:8px;border-top:1px solid #E5E7EB;"><a href="https://costestimation.my.canva.site/untitled-app" target="_blank" rel="noopener noreferrer" style="color:#059669;text-decoration:underline;font-size:12px;cursor:pointer;" onmouseover="this.style.color=\'#047857\'" onmouseout="this.style.color=\'#059669\'">How we got this score →</a></div>';
+      '<div style="margin-top:6px;padding-top:6px;border-top:1px solid #E5E7EB;font-size:10px;color:#999;">Weight: ' + (weightKg * 1000).toFixed(0) + 'g x' + qty + ' | Source: Poore & Nemecek 2018</div>';
 
     badge.addEventListener('click', function(e) {
       e.preventDefault();
@@ -336,6 +334,14 @@ function scanCart() {
         '<span style="font-size:14px;color:#1F3864;font-weight:700;">True cost</span>' +
         '<span data-ecocart-true-total style="font-size:14px;color:#1F3864;font-weight:800;">$' + (retailTotal + totalHidden).toFixed(2) + '</span>';
       hiddenRow.parentElement.insertBefore(trueRow, hiddenRow.nextSibling);
+
+       // Add "How we got this score" link (after Hidden env. cost, before True cost)
+       var linkRow = document.createElement('div');
+       linkRow.id = 'ecocart-methodology-link';
+       linkRow.style.cssText = 'padding:1px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;';
+       linkRow.innerHTML = '<a href="https://costestimation.my.canva.site/untitled-app" target="_blank" rel="noopener noreferrer" style="color:#059669;text-decoration:underline;font-size:12px;cursor:pointer;" onmouseover="this.style.color=\'#047857\'" onmouseout="this.style.color=\'#059669\'">How we got this score →</a>';
+       hiddenRow.parentElement.insertBefore(linkRow, hiddenRow.nextSibling);
+
     } else if (document.getElementById('ecocart-sidebar-cost')) {
       var st = document.querySelector('[data-ecocart-sidebar-total]');
       if (st) st.textContent = '+$' + totalHidden.toFixed(2);
@@ -364,7 +370,7 @@ function scanCart() {
           hiddenRow.id = 'ecocart-sidebar-cost';
           hiddenRow.style.cssText = 'display:flex;justify-content:space-between;align-items:center;padding:8px 0;margin-top:8px;border-top:2px dashed #FECACA;';
           hiddenRow.innerHTML = '<span style="font-size:13px;color:#DC2626;font-weight:600;">Hidden env. cost</span><span data-ecocart-sidebar-total style="font-size:13px;color:#DC2626;font-weight:700;">+$' + totalHidden.toFixed(2) + '</span>';
-
+          
           var trueRow = document.createElement('div');
           trueRow.id = 'ecocart-true-cost';
           trueRow.style.cssText = 'display:flex;justify-content:space-between;align-items:center;padding:8px 0;margin-top:4px;border-top:2px solid #1F3864;';
@@ -372,6 +378,14 @@ function scanCart() {
 
           container.parentElement.insertBefore(hiddenRow, container.nextSibling);
           hiddenRow.parentElement.insertBefore(trueRow, hiddenRow.nextSibling);
+          
+           // Add "How we got this score" link (after Hidden env. cost, before True cost)
+          var linkRow = document.createElement('div');
+          linkRow.id = 'ecocart-methodology-link';
+          linkRow.style.cssText = 'padding:1px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;';
+          linkRow.innerHTML = '<a href="https://costestimation.my.canva.site/untitled-app" target="_blank" rel="noopener noreferrer" style="color:#059669;text-decoration:underline;font-size:12px;cursor:pointer;" onmouseover="this.style.color=\'#047857\'" onmouseout="this.style.color=\'#059669\'">How we got this score →</a>';
+          hiddenRow.parentElement.insertBefore(linkRow, hiddenRow.nextSibling);
+        
         } else if (document.getElementById('ecocart-sidebar-cost')) {
           var st = document.querySelector('[data-ecocart-sidebar-total]');
           if (st) st.textContent = '+$' + totalHidden.toFixed(2);
