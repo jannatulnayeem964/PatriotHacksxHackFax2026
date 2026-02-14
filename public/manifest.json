@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "EcoCart Decoder",
+  "version": "0.1.0",
+  "description": "See the hidden environmental cost of your grocery cart",
+  "permissions": ["activeTab", "sidePanel"],
+  "content_scripts": [
+    {
+      "matches": ["*://www.walmart.com/cart*"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "FM-BEEF-01": { "name": "Frozen Beef Lasagna", "co2e_per_kg": 23.27, "water_per_kg": 4547, "land_per_kg": 56.46, "keywords": ["lasagna", "meat sauce", "bolognese"] },
+  "PZ-PEP-01": { "name": "Frozen Pepperoni Pizza", "co2e_per_kg": 8.96, "water_per_kg": 2843, "land_per_kg": 25.12, "keywords": ["pepperoni pizza", "pepperoni"] },
+  "PZ-CHZ-01": { "name": "Frozen Cheese Pizza", "co2e_per_kg": 9.58, "water_per_kg": 2987, "land_per_kg": 28.45, "keywords": ["cheese pizza", "four cheese", "margherita"] },
+  "FM-CHKN-01": { "name": "Frozen Chicken Pot Pie", "co2e_per_kg": 5.84, "water_per_kg": 2103, "land_per_kg": 12.73, "keywords": ["chicken pot pie", "pot pie"] },
+  "BP-CHKN-01": { "name": "Frozen Chicken Nuggets", "co2e_per_kg": 8.22, "water_per_kg": 3012, "land_per_kg": 9.87, "keywords": ["chicken nuggets", "nuggets", "dino nuggets", "popcorn chicken"] },
+  "BP-FISH-01": { "name": "Frozen Fish Sticks", "co2e_per_kg": 4.13, "water_per_kg": 687, "land_per_kg": 1.87, "keywords": ["fish sticks", "fish fingers", "fish stix"] },
+  "MX-BEEF-01": { "name": "Frozen Beef Burrito", "co2e_per_kg": 18.52, "water_per_kg": 4210, "land_per_kg": 55.32, "keywords": ["beef burrito", "burrito", "bean burrito"] },
+  "SN-TOTS-01": { "name": "Frozen Tater Tots / Fries", "co2e_per_kg": 1.17, "water_per_kg": 322, "land_per_kg": 1.02, "keywords": ["tater tots", "french fries", "fries", "hash browns", "ore-ida"] },
+  "FV-MIX-01": { "name": "Frozen Mixed Vegetables", "co2e_per_kg": 1.27, "water_per_kg": 537, "land_per_kg": 2.89, "keywords": ["mixed vegetables", "mixed veggies", "medley"] },
+  "IC-VAN-01": { "name": "Ice Cream (Vanilla)", "co2e_per_kg": 5.68, "water_per_kg": 1842, "land_per_kg": 18.23, "keywords": ["vanilla ice cream", "ice cream", "breyers"] }
+}
