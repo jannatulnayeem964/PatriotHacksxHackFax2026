@@ -14,9 +14,12 @@ export default defineConfig({
       output: {
         entryFileNames: '[name].js',
         chunkFileNames: '[name].js',
-        assetFileNames: '[name].[ext]'
+        assetFileNames: '[name].[ext]',
+        inlineDynamicImports: false,
+        manualChunks: undefined
       }
     },
-    outDir: 'dist'
+    outDir: 'dist',
+    cssCodeSplit: false
   }
 })
