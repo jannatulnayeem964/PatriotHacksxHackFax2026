@@ -192,7 +192,8 @@ function scanCart() {
           '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Carbon (' + (match.co2e * weightKg * qty).toFixed(1) + ' kg CO2e)</span><span style="color:#DC2626;font-weight:600;">$' + (costs.carbon * qty).toFixed(2) + '</span></div>' +
           '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Water (' + (match.water * weightKg * qty).toFixed(0) + ' L)</span><span style="color:#2563EB;font-weight:600;">$' + (costs.water * qty).toFixed(2) + '</span></div>' +
           '<div style="display:flex;justify-content:space-between;"><span>Land (' + (match.land * weightKg * qty).toFixed(1) + ' m2)</span><span style="color:#16A34A;font-weight:600;">$' + (costs.land * qty).toFixed(2) + '</span></div>' +
-          '<div style="margin-top:6px;padding-top:6px;border-top:1px solid #E5E7EB;font-size:10px;color:#999;">Weight: ' + (weightKg * 1000).toFixed(0) + 'g x' + qty + ' | Source: Poore & Nemecek 2018</div>';
+          '<div style="margin-top:6px;padding-top:6px;border-top:1px solid #E5E7EB;font-size:10px;color:#999;">Weight: ' + (weightKg * 1000).toFixed(0) + 'g x' + qty + ' | Source: Poore & Nemecek 2018</div>' +
+          '<div style="margin-top:8px;padding-top:8px;border-top:1px solid #E5E7EB;"><a href="https://costestimation.my.canva.site/untitled-app" target="_blank" rel="noopener noreferrer" style="color:#059669;text-decoration:underline;font-size:12px;cursor:pointer;" onmouseover="this.style.color=\'#047857\'" onmouseout="this.style.color=\'#059669\'">How we got this score →</a></div>';
       }
       return;
     }
@@ -239,7 +240,8 @@ function scanCart() {
       '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Carbon (' + (match.co2e * weightKg * qty).toFixed(1) + ' kg CO2e)</span><span style="color:#DC2626;font-weight:600;">$' + (costs.carbon * qty).toFixed(2) + '</span></div>' +
       '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Water (' + (match.water * weightKg * qty).toFixed(0) + ' L)</span><span style="color:#2563EB;font-weight:600;">$' + (costs.water * qty).toFixed(2) + '</span></div>' +
       '<div style="display:flex;justify-content:space-between;"><span>Land (' + (match.land * weightKg * qty).toFixed(1) + ' m2)</span><span style="color:#16A34A;font-weight:600;">$' + (costs.land * qty).toFixed(2) + '</span></div>' +
-      '<div style="margin-top:6px;padding-top:6px;border-top:1px solid #E5E7EB;font-size:10px;color:#999;">Weight: ' + (weightKg * 1000).toFixed(0) + 'g x' + qty + ' | Source: Poore & Nemecek 2018</div>';
+      '<div style="margin-top:6px;padding-top:6px;border-top:1px solid #E5E7EB;font-size:10px;color:#999;">Weight: ' + (weightKg * 1000).toFixed(0) + 'g x' + qty + ' | Source: Poore & Nemecek 2018</div>' +
+      '<div style="margin-top:8px;padding-top:8px;border-top:1px solid #E5E7EB;"><a href="https://costestimation.my.canva.site/untitled-app" target="_blank" rel="noopener noreferrer" style="color:#059669;text-decoration:underline;font-size:12px;cursor:pointer;" onmouseover="this.style.color=\'#047857\'" onmouseout="this.style.color=\'#059669\'">How we got this score →</a></div>';
 
     badge.addEventListener('click', function(e) {
       e.preventDefault();
@@ -255,6 +257,11 @@ function scanCart() {
     });
 
     detail.addEventListener('click', function(e) {
+      //allow links to work 
+      if (e.target.tagName === 'A') {
+        return;
+      }
+      
       e.preventDefault();
       e.stopPropagation();
       e.stopImmediatePropagation();
