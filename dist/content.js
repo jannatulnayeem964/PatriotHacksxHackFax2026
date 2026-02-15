@@ -168,19 +168,18 @@ var companyScores = {
 };
 
 // ─── 4. SCORING FUNCTIONS ────────────────────────────────────
-var CARBON_RATE = 0.185;
-var WATER_RATE  = 0.0015;
-var LAND_RATE   = 1.00;
+var CARBON_RATE = 0.185;  // Social cost of carbon per kg CO2e (Poore & Nemecek 2018)
+var WATER_RATE  = 0.0015; // Water scarcity cost per litre (Poore & Nemecek 2018)
+// Land rate removed — no defensible published monetization rate exists for m² per kg
 var MAX_CO2E    = 36;
 var MAX_WATER   = 7000;
-var MAX_LAND    = 85;
 
-// Product-level eco score (already existed)
+// Product-level eco score — carbon 67%, water 33%
+// Land kept in archetype data (Poore & Nemecek) but excluded from scoring
 function getSustainabilityScore(archetype) {
   var carbonScore = Math.max(0, 1 - archetype.co2e / MAX_CO2E);
   var waterScore  = Math.max(0, 1 - archetype.water / MAX_WATER);
-  var landScore   = Math.max(0, 1 - archetype.land / MAX_LAND);
-  return Math.round((carbonScore * 0.50 + waterScore * 0.25 + landScore * 0.25) * 100);
+  return Math.round((carbonScore * 0.67 + waterScore * 0.33) * 100);
 }
 
 // Company-level overall score: CDP 40% + JUST 40% + Violations 20%
@@ -293,7 +292,7 @@ function showLearnMoreModal(match, weightKg, qty, productName) {
     + '<div style="margin-top:6px;height:6px;background:rgba(0,0,0,0.08);border-radius:99px;overflow:hidden;">'
     + '<div style="height:6px;border-radius:99px;background:' + ecoInfo.color + ';width:' + ecoScore + '%;transition:width 0.8s ease;"></div>'
     + '</div>'
-    + '<div style="font-size:10px;color:#64748B;margin-top:5px;">Based on carbon, water & land use per kg</div>'
+    + '<div style="font-size:10px;color:#64748B;margin-top:5px;">Based on carbon & water use per kg (Poore & Nemecek 2018)</div>'
     + '</div>';
   ecoSection.appendChild(ecoRow);
 
@@ -302,8 +301,7 @@ function showLearnMoreModal(match, weightKg, qty, productName) {
   impactDiv.style.cssText = 'margin-top:10px;';
   var metrics = [
     { icon: '🌫️', label: 'Carbon', value: (match.co2e * weightKg * qty).toFixed(1) + ' kg CO2e', sub: '≈ driving ' + Math.round(match.co2e * weightKg * qty * 4) + ' km', color: '#DC2626' },
-    { icon: '💧', label: 'Water',  value: (match.water * weightKg * qty).toFixed(0) + ' L',        sub: '≈ ' + Math.round(match.water * weightKg * qty / 2) + ' min shower', color: '#2563EB' },
-    { icon: '🌱', label: 'Land',   value: (match.land * weightKg * qty).toFixed(1) + ' m²',        sub: 'farmland used', color: '#16A34A' }
+    { icon: '💧', label: 'Water',  value: (match.water * weightKg * qty).toFixed(0) + ' L',        sub: '≈ ' + Math.round(match.water * weightKg * qty / 2) + ' min shower', color: '#2563EB' }
   ];
   metrics.forEach(function(m) {
     var row = document.createElement('div');
@@ -455,8 +453,7 @@ function matchProduct(name) {
 function calcHiddenCost(archetype, weightKg) {
   var carbon = archetype.co2e * weightKg * CARBON_RATE;
   var water  = archetype.water * weightKg * WATER_RATE;
-  var land   = archetype.land * weightKg * LAND_RATE;
-  return { carbon: carbon, water: water, land: land, total: carbon + water + land };
+  return { carbon: carbon, water: water, total: carbon + water };
 }
 
 function getGrade(total) {
@@ -486,7 +483,6 @@ function findQuantity(el) {
 function buildDetailHTML(match, weightKg, qty, costs) {
   return '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Carbon (' + (match.co2e * weightKg * qty).toFixed(1) + ' kg CO2e)</span><span style="color:#DC2626;font-weight:600;">$' + (costs.carbon * qty).toFixed(2) + '</span></div>'
     + '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Water (' + (match.water * weightKg * qty).toFixed(0) + ' L)</span><span style="color:#2563EB;font-weight:600;">$' + (costs.water * qty).toFixed(2) + '</span></div>'
-    + '<div style="display:flex;justify-content:space-between;"><span>Land (' + (match.land * weightKg * qty).toFixed(1) + ' m2)</span><span style="color:#16A34A;font-weight:600;">$' + (costs.land * qty).toFixed(2) + '</span></div>'
     + '<div style="margin-top:6px;padding-top:6px;border-top:1px solid #E5E7EB;font-size:10px;color:#999;">Weight: ' + (weightKg * 1000).toFixed(0) + 'g x' + qty + ' | Source: Poore & Nemecek 2018</div>';
 }
 
