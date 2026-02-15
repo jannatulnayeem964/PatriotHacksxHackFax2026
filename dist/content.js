@@ -265,7 +265,7 @@ function showLearnMoreModal(match, weightKg, qty, productName) {
   var header = document.createElement('div');
   header.style.cssText = 'background:linear-gradient(135deg,#1F3864,#2D5A9E);padding:18px 20px;color:white;border-radius:18px 18px 0 0;position:sticky;top:0;z-index:1;';
   header.innerHTML = '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">'
-    + '<div><div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;opacity:0.65;margin-bottom:4px;">EcoCart Decoder</div>'
+    + '<div><div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;opacity:0.65;margin-bottom:4px;">CO2pid</div>'
     + '<div style="font-size:15px;font-weight:700;line-height:1.3;">' + match.name + '</div>'
     + (companyName ? '<div style="font-size:11px;opacity:0.7;margin-top:3px;">Made by ' + companyName + '</div>' : '')
     + '</div>'
@@ -612,14 +612,29 @@ function scanCart() {
       if (bc) bc.textContent = '+$' + totalHidden.toFixed(2);
       if (bn) bn.textContent = itemCount + ' items analyzed';
     } else {
-      var cartHeader = document.querySelector('[class*="Cart"]') || document.querySelector('h1');
-      if (cartHeader) {
+      // Find the cart item list container — insert inside it, not adjacent to h1
+      var cartContainer =
+        document.querySelector('[data-testid="cart-item-container"]') ||
+        document.querySelector('[data-testid="cartContainer"]') ||
+        document.querySelector('[class*="CartItem"]') ||
+        document.querySelector('[class*="cart-items"]') ||
+        document.querySelector('h1');
+
+      if (cartContainer) {
         banner = document.createElement('div');
         banner.id = 'ecocart-total';
-        banner.style.cssText = 'margin:12px 0;padding:14px 18px;background:linear-gradient(135deg,#1F3864,#2D5A9E);border-radius:12px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;display:flex;align-items:center;justify-content:space-between;color:white;box-shadow:0 2px 8px rgba(31,56,100,0.3);';
-        banner.innerHTML = '<div><div style="font-size:13px;font-weight:700;">EcoCart Decoder</div><div style="font-size:11px;opacity:0.8;margin-top:2px;">Hidden environmental costs in your cart</div></div>'
-          + '<div style="text-align:right;"><div data-ecocart-banner-cost style="font-size:20px;font-weight:800;color:#FCA5A5;">+$' + totalHidden.toFixed(2) + '</div><div data-ecocart-banner-count style="font-size:10px;opacity:0.7;">' + itemCount + ' items analyzed</div></div>';
-        cartHeader.parentElement.insertBefore(banner, cartHeader.nextSibling);
+        banner.style.cssText = 'margin:0 0 16px 0;padding:14px 18px;background:linear-gradient(135deg,#1F3864,#2D5A9E);border-radius:12px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;display:flex;align-items:center;justify-content:space-between;color:white;box-shadow:0 2px 8px rgba(31,56,100,0.3);width:100%;box-sizing:border-box;';
+        banner.innerHTML =
+          '<div>'
+          + '<div style="font-size:15px;font-weight:800;letter-spacing:-0.3px;">CO2pid</div>'
+          + '<div style="font-size:11px;opacity:0.75;margin-top:2px;">Hidden environmental costs in your cart</div>'
+          + '</div>'
+          + '<div style="text-align:right;">'
+          + '<div data-ecocart-banner-cost style="font-size:20px;font-weight:800;color:#FCA5A5;">+$' + totalHidden.toFixed(2) + '</div>'
+          + '<div data-ecocart-banner-count style="font-size:10px;opacity:0.7;">' + itemCount + ' items analyzed</div>'
+          + '</div>';
+        // Insert inside the container at the top rather than outside it
+        cartContainer.insertBefore(banner, cartContainer.firstChild);
       }
     }
   }
@@ -703,7 +718,7 @@ function scanCart() {
 }
 
 // ─── 8. INIT & OBSERVER ──────────────────────────────────────
-console.log('EcoCart Decoder: scanning Walmart cart...');
+console.log('CO2pid: scanning Walmart cart...');
 scanCart();
 
 var debounceTimer = null;
