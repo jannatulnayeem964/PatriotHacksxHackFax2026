@@ -1,9 +1,4 @@
-// ============================================================
-// ECOCART DECODER — content.js
-// Combines product-level environmental impact with
-// company-level Justice & Sustainability scores.
-// Sources: CDP (2024), JUST Capital (2024), Violation Tracker
-// ============================================================
+
 
 // ─── 1. PRODUCT ARCHETYPES ───────────────────────────────────
 var archetypes = {
@@ -655,6 +650,14 @@ function scanCart() {
     if (retailSpan) retailTotal = parseFloat(retailSpan.textContent.replace(/[^0-9.]/g, '')) || 0;
     trueRow.innerHTML = '<span style="font-size:14px;color:#1F3864;font-weight:700;">True cost</span><span data-ecocart-true-total style="font-size:14px;color:#1F3864;font-weight:800;">$' + (retailTotal + totalHidden).toFixed(2) + '</span>';
     hiddenRow.parentElement.insertBefore(trueRow, hiddenRow.nextSibling);
+    // "How we got this score" link
+    if (!document.getElementById('ecocart-methodology-link')) {
+      var linkRow = document.createElement('div');
+      linkRow.id = 'ecocart-methodology-link';
+      linkRow.style.cssText = 'padding:1px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;';
+      linkRow.innerHTML = '<a href="https://costestimation.my.canva.site/untitled-app" target="_blank" rel="noopener noreferrer" style="color:#059669;text-decoration:underline;font-size:12px;cursor:pointer;" onmouseover="this.style.color=\'#047857\'" onmouseout="this.style.color=\'#059669\'">How we got this score →</a>';
+      hiddenRow.parentElement.insertBefore(linkRow, hiddenRow.nextSibling);
+    }
   } else if (document.getElementById('ecocart-sidebar-cost')) {
     var st = document.querySelector('[data-ecocart-sidebar-total]');
     if (st) st.textContent = '+$' + totalHidden.toFixed(2);
@@ -681,6 +684,14 @@ function scanCart() {
         trueRow2.innerHTML = '<span style="font-size:14px;color:#1F3864;font-weight:700;">TRUE COST</span><span data-ecocart-true-total style="font-size:14px;color:#1F3864;font-weight:800;">$' + (retailTotal2 + totalHidden).toFixed(2) + '</span>';
         container.parentElement.insertBefore(hiddenRow2, container.nextSibling);
         hiddenRow2.parentElement.insertBefore(trueRow2, hiddenRow2.nextSibling);
+        // "How we got this score" link
+        if (!document.getElementById('ecocart-methodology-link')) {
+          var linkRow2 = document.createElement('div');
+          linkRow2.id = 'ecocart-methodology-link';
+          linkRow2.style.cssText = 'padding:1px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;';
+          linkRow2.innerHTML = '<a href="https://costestimation.my.canva.site/untitled-app" target="_blank" rel="noopener noreferrer" style="color:#059669;text-decoration:underline;font-size:12px;cursor:pointer;" onmouseover="this.style.color=\'#047857\'" onmouseout="this.style.color=\'#059669\'">How we got this score →</a>';
+          hiddenRow2.parentElement.insertBefore(linkRow2, hiddenRow2.nextSibling);
+        }
       } else if (document.getElementById('ecocart-sidebar-cost')) {
         var st2 = document.querySelector('[data-ecocart-sidebar-total]');
         if (st2) st2.textContent = '+$' + totalHidden.toFixed(2);
